@@ -6,11 +6,6 @@
 
 #define LEDCommon 10
 
-// 0 = OFF
-// 1 = Red
-// 2 = Green
-// 3 = Blue
-
 // FOR TESTING
 bool buttonState1 = HIGH;
 bool buttonState2 = HIGH;
@@ -55,6 +50,20 @@ void loop() {
   }
   // END TESTING
 
+  // LED COLORS
+  // 0 = OFF
+  // 1 = Red
+  // 2 = Green
+  // 3 = Blue
+
+  // Channel Info:
+  // LED1 Red - Channel 0
+  // LED1 Green - Channel 1
+  // LED1 Blue - Channel 3
+  // LED2 Red - Channel 7
+  // LED2 Green - Channel 6
+  // LED2 Blue - Channel 4
+
   if (LED1 == 0) {
     digitalWrite(LEDCommon, LOW);
   }
@@ -62,22 +71,22 @@ void loop() {
     digitalWrite(LEDCommon, LOW);
   }
   if (LED1 == 1) {
-    writeLED1Red();
+    writeChannel(0);
   }
   if (LED1 == 2) {
-    writeLED1Green();
+    writeChannel(1);
   }
   if (LED1 == 3) {
-    writeLED1Blue();
+    writeChannel(2);
   }
   if (LED2 == 1) {
-    writeLED2Red();
+    writeChannel(7);
   }
   if (LED2 == 2) {
-    writeLED2Green();
+    writeChannel(6);
   }
   if (LED2 == 3) {
-    writeLED2Blue();
+    writeChannel(4);
   }
 
   Serial.print("LED1: ");
@@ -86,26 +95,26 @@ void loop() {
   Serial.println(LED2);
 }
 
-void writeLED1Red() {
-  channelSelect(0);
-}
-void writeLED1Green() {
-  channelSelect(1);
-}
-void writeLED1Blue() {
-  channelSelect(2);
-}
-void writeLED2Red() {
-  channelSelect(7);
-}
-void writeLED2Green() {
-  channelSelect(6);
-}
-void writeLED2Blue() {
-  channelSelect(4);
-}
+// void writeLED1Red() {
+//   writeChannel(0);
+// }
+// void writeLED1Green() {
+//   writeChannel(1);
+// }
+// void writeLED1Blue() {
+//   writeChannel(2);
+// }
+// void writeLED2Red() {
+//   writeChannel(7);
+// }
+// void writeLED2Green() {
+//   writeChannel(6);
+// }
+// void writeLED2Blue() {
+//   writeChannel(4);
+// }
 
-void channelSelect(int i) {
+void writeChannel(int i) {
   digitalWrite(LEDCommon, LOW);  // Turn off previous color
   // Bitwise operation selects channel based on the binary of i
   digitalWrite(selector0, (i & 0x01) ? HIGH : LOW);
