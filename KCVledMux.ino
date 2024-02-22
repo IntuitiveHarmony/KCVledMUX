@@ -87,44 +87,29 @@ void loop() {
 }
 
 void writeLED1Red() {
-  digitalWrite(LEDCommon, LOW);  // Turn off previous color
-  digitalWrite(selector0, LOW);  // Selector Logic for channel 0
-  digitalWrite(selector1, LOW);
-  digitalWrite(selector2, LOW);
-  digitalWrite(LEDCommon, HIGH);  // Turn on LED
+  channelSelect(0);
 }
 void writeLED1Green() {
-  digitalWrite(LEDCommon, LOW);   // Turn off previous color
-  digitalWrite(selector0, HIGH);  // Selector Logic for channel 1
-  digitalWrite(selector1, LOW);
-  digitalWrite(selector2, LOW);
-  digitalWrite(LEDCommon, HIGH);  // Turn on LED
+  channelSelect(1);
 }
 void writeLED1Blue() {
-  digitalWrite(LEDCommon, LOW);  // Turn off previous color
-  digitalWrite(selector0, LOW);  // Selector Logic for channel 2
-  digitalWrite(selector1, HIGH);
-  digitalWrite(selector2, LOW);
-  digitalWrite(LEDCommon, HIGH);  // Turn on LED
+  channelSelect(2);
 }
 void writeLED2Red() {
-  digitalWrite(LEDCommon, LOW);   // Turn off previous color
-  digitalWrite(selector0, HIGH);  // Selector Logic for channel 7
-  digitalWrite(selector1, HIGH);
-  digitalWrite(selector2, HIGH);
-  digitalWrite(LEDCommon, HIGH);  // Turn on LED
+  channelSelect(7);
 }
 void writeLED2Green() {
-  digitalWrite(LEDCommon, LOW);  // Turn off previous color
-  digitalWrite(selector0, LOW);  // Selector Logic for channel 6
-  digitalWrite(selector1, HIGH);
-  digitalWrite(selector2, HIGH);
-  digitalWrite(LEDCommon, HIGH);  // Turn on LED
+  channelSelect(6);
 }
 void writeLED2Blue() {
+  channelSelect(4);
+}
+
+void channelSelect(int i) {
   digitalWrite(LEDCommon, LOW);  // Turn off previous color
-  digitalWrite(selector0, LOW);  // Selector Logic for channel 4
-  digitalWrite(selector1, LOW);
-  digitalWrite(selector2, HIGH);
+  // Bitwise operation selects channel based on the binary of i
+  digitalWrite(selector0, (i & 0x01) ? HIGH : LOW);
+  digitalWrite(selector1, (i & 0x02) ? HIGH : LOW);
+  digitalWrite(selector2, (i & 0x04) ? HIGH : LOW);
   digitalWrite(LEDCommon, HIGH);  // Turn on LED
 }
