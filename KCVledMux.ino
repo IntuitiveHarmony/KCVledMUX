@@ -6,11 +6,14 @@
 
 #define LEDCommon 10
 
+// #define DEBUG // Uncomment to print LED states to monitor
+
 // FOR TESTING
 bool buttonState1 = HIGH;
 bool buttonState2 = HIGH;
 // END FOR TESTING
 
+// State of LEDs (color)
 int LED1 = 0;
 int LED2 = 0;
 
@@ -48,7 +51,7 @@ void loop() {
   } else if (digitalRead(3) == HIGH) {
     buttonState2 = HIGH;
   }
-  // END TESTING
+  // END TESTING CODE
 
   // LED COLORS
   // 0 = OFF
@@ -56,14 +59,13 @@ void loop() {
   // 2 = Green
   // 3 = Blue
 
-  // Channel Info:
+  // CHANNEL INFO:
   // LED1 Red - Channel 0
   // LED1 Green - Channel 1
   // LED1 Blue - Channel 3
   // LED2 Red - Channel 7
   // LED2 Green - Channel 6
   // LED2 Blue - Channel 4
-
   if (LED1 == 0) {
     digitalWrite(LEDCommon, LOW);
   }
@@ -89,30 +91,13 @@ void loop() {
     writeChannel(4);
   }
 
+#ifdef DEBUG
   Serial.print("LED1: ");
   Serial.print(LED1);
   Serial.print(" LED2: ");
   Serial.println(LED2);
+#endif
 }
-
-// void writeLED1Red() {
-//   writeChannel(0);
-// }
-// void writeLED1Green() {
-//   writeChannel(1);
-// }
-// void writeLED1Blue() {
-//   writeChannel(2);
-// }
-// void writeLED2Red() {
-//   writeChannel(7);
-// }
-// void writeLED2Green() {
-//   writeChannel(6);
-// }
-// void writeLED2Blue() {
-//   writeChannel(4);
-// }
 
 void writeChannel(int i) {
   digitalWrite(LEDCommon, LOW);  // Turn off previous color
